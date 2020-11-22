@@ -57,9 +57,27 @@
       $(function(){
           $('body').removeClass('no-js').addClass('js');
           
+          function setImage(link){
+              let img = link.attr('href');
+              $('.full .img').css('background-image','url("'+ img +'")')
+              $('.thumbs .active').removeClass('active')
+              link.addClass('active')
+          }
+          
+          setImage($('.thumbs a').first())
+          
           $('.full .img').css('background-image', 'url("images/fulls/01.jpg")')
           
-          $('.thumbs a').first().addClass('active')
+          //o ende volta pro nível anterior da seleção
+          $('.thumbs a').on('click',function(e){
+              e.preventDefault()
+              let link = $(this);
+              
+              $('.full .img').fadeOut(400,function(){
+                  setImage(link)
+                  $(this).fadeIn(400)
+              })
+          })
       })
     
   </script>
